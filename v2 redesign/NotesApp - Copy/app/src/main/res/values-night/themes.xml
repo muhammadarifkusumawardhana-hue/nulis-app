@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.NotesApp" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">#111A11</item>
-        <item name="android:statusBarColor">#111A11</item>
-        <item name="android:navigationBarColor">#1C2B1C</item>
-    </style>
-</resources>
