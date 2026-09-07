@@ -1,4 +1,4 @@
-# PersonalNotes — Panduan Lengkap
+# Nulis App — Panduan Lengkap
 
 Aplikasi catatan Markdown pribadi untuk Android.
 Dibuat dengan Kotlin + Jetpack Compose + Room.
