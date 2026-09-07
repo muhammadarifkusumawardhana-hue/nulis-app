@@ -1,0 +1,177 @@
+package com.nu.lis
+
+import android.content.Context
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.view.WindowCompat
+import com.nu.lis.data.AppContainer
+import com.nu.lis.theme.*
+import com.nu.lis.ui.editor.EditorScreen
+import com.nu.lis.ui.editor.EditorViewModel
+import com.nu.lis.ui.editor.EditorViewModelFactory
+import com.nu.lis.ui.home.HomeScreen
+import com.nu.lis.ui.home.HomeViewModel
+import com.nu.lis.ui.home.HomeViewModelFactory
+import com.nu.lis.ui.settings.SettingsDialog
+
+class MainActivity : FragmentActivity() {
+
+    private val db by lazy { AppContainer.getDatabase(this) }
+    private var lastHomeExitTime: Long = 0L
+
+    private val homeVm: HomeViewModel by viewModels {
+        HomeViewModelFactory(db)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val prefs = getSharedPreferences("settings", Context.MODE_PRIVATE)
+
+        setContent {
+            val appSettings = remember {
+                AppSettingsState(
+                    darkMode = prefs.getBoolean("darkMode", false),
+                    language = prefs.getString("language", "en") ?: "en",
+                    accentColor = Color(prefs.getInt("accentColor", Color.Black.toArgb())),
+                    nickname = prefs.getString("nickname", "") ?: "",
+                    isGridView = prefs.getBoolean("isGridView", false),
+                    fontTheme = prefs.getString("fontTheme", "Modern") ?: "Modern",
+                    isNoteLockEnabled = prefs.getBoolean("isNoteLockEnabled", false),
+                    noteLockPin = prefs.getString("noteLockPin", "") ?: "",
+                    isBiometricEnabled = prefs.getBoolean("isBiometricEnabled", false),
+                    securityQuestion = prefs.getString("securityQuestion", "") ?: "",
+                    securityAnswer = prefs.getString("securityAnswer", "") ?: "",
+                    lockTimeoutSeconds = prefs.getInt("lockTimeoutSeconds", 0)
+                )
+            }
+
+            // Persistence observer
+            LaunchedEffect(
+                appSettings.darkMode, 
+                appSettings.language, 
+                appSettings.accentColor, 
+                appSettings.nickname, 
+                appSettings.isGridView, 
+                appSettings.fontTheme,
+                appSettings.isNoteLockEnabled,
+                appSettings.noteLockPin,
+                appSettings.isBiometricEnabled,
+                appSettings.securityQuestion,
+                appSettings.securityAnswer,
+                appSettings.lockTimeoutSeconds
+            ) {
+                prefs.edit().apply {
+                    putBoolean("darkMode", appSettings.darkMode)
+                    putString("language", appSettings.language)
+                    putInt("accentColor", appSettings.accentColor.toArgb())
+                    putString("nickname", appSettings.nickname)
+                    putBoolean("isGridView", appSettings.isGridView)
+                    putString("fontTheme", appSettings.fontTheme)
+                    putBoolean("isNoteLockEnabled", appSettings.isNoteLockEnabled)
+                    putString("noteLockPin", appSettings.noteLockPin)
+                    putBoolean("isBiometricEnabled", appSettings.isBiometricEnabled)
+                    putString("securityQuestion", appSettings.securityQuestion)
+                    putString("securityAnswer", appSettings.securityAnswer)
+                    putInt("lockTimeoutSeconds", appSettings.lockTimeoutSeconds)
+                    apply()
+                }
+            }
+
+            CompositionLocalProvider(LocalAppSettings provides appSettings) {
+                NotesTheme {
+                    NotesApp(
+                        db = db,
+                        homeVm = homeVm,
+                        lastHomeExitTime = lastHomeExitTime,
+                        onHomeExit = { lastHomeExitTime = System.currentTimeMillis() }
+                    )
+                }
+            }
+        }
+    }
+}
+
+// ── Navigasi sederhana tanpa library navigation-compose ──────────
+sealed class Screen {
+    object Home : Screen()
+    data class Editor(val noteId: Long, val folderId: Long, val key: String) : Screen()
+}
+
+
+@Composable
+fun NotesApp(
+    db: com.nu.lis.data.AppDatabase,
+    homeVm: HomeViewModel,
+    lastHomeExitTime: Long,
+    onHomeExit: () -> Unit
+) {
+    var screen by remember { mutableStateOf<Screen>(Screen.Home) }
+    var showSettings by remember { mutableStateOf(false) }
+    val appSettings = LocalAppSettings.current
+    val isIndo = appSettings.language == "id"
+
+    if (showSettings) {
+        SettingsDialog(
+            onDismiss = { showSettings = false },
+            onRestart = { 
+                showSettings = false
+                homeVm.clearAll() // Triggers refresh
+            },
+            isIndo = isIndo
+        )
+    }
+
+    AnimatedContent(
+        targetState = screen,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(300)) togetherWith 
+            fadeOut(animationSpec = tween(300))
+        },
+        label = "screen_transition"
+    ) { targetScreen ->
+        when (val s = targetScreen) {
+            is Screen.Home -> {
+                HomeScreen(
+                    vm = homeVm,
+                    onOpenNote = { noteId ->
+                        onHomeExit()
+                        screen = Screen.Editor(noteId = noteId, folderId = -1L, key = "note_$noteId")
+                    },
+                    onNewNote = { folderId ->
+                        onHomeExit()
+                        screen = Screen.Editor(noteId = -1L, folderId = folderId, key = "new_${System.currentTimeMillis()}")
+                    },
+                    onGoToSettings = { showSettings = true }
+                )
+            }
+
+            is Screen.Editor -> {
+                val editorVm: EditorViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+                    key = s.key,
+                    factory = EditorViewModelFactory(db, s.noteId, s.folderId)
+                )
+                EditorScreen(
+                    vm = editorVm,
+                    lastHomeExitTime = lastHomeExitTime,
+                    onBack = { screen = Screen.Home },
+                    onNavigateToNote = { id ->
+                        screen = Screen.Editor(noteId = id, folderId = -1L, key = "note_$id")
+                    }
+                )
+            }
+        }
+    }
+}
+
+

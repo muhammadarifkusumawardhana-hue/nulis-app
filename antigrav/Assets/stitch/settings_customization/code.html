@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Personal Notes - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#aee7c2",
+                    "primary-fixed-dim": "#b8deb8",
+                    "surface-variant": "#bbeecc",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffa271",
+                    "secondary-fixed": "#ffdbc8",
+                    "tertiary": "#994817",
+                    "surface-container-high": "#c6f3d4",
+                    "on-surface-variant": "#3a684e",
+                    "primary-dim": "#395b3d",
+                    "surface-container": "#d0f7dc",
+                    "on-tertiary-container": "#5f2500",
+                    "on-tertiary-fixed": "#3c1400",
+                    "tertiary-fixed-dim": "#f7915a",
+                    "error-container": "#fa7150",
+                    "tertiary-dim": "#893c0a",
+                    "on-tertiary-fixed-variant": "#6d2b00",
+                    "on-primary-container": "#38593c",
+                    "primary-fixed": "#c6ecc5",
+                    "error": "#aa371c",
+                    "on-secondary-container": "#71482f",
+                    "background": "#e9ffed",
+                    "on-secondary-fixed-variant": "#7c5237",
+                    "surface-tint": "#456748",
+                    "primary-container": "#c6ecc5",
+                    "on-primary": "#e9ffe6",
+                    "on-error-container": "#671200",
+                    "primary": "#456748",
+                    "surface-bright": "#e9ffed",
+                    "tertiary-container": "#ffa271",
+                    "on-primary-fixed-variant": "#426345",
+                    "on-surface": "#073a23",
+                    "secondary-container": "#ffdbc8",
+                    "surface-container-highest": "#bbeecc",
+                    "secondary-fixed-dim": "#ffc9aa",
+                    "inverse-primary": "#d4fbd3",
+                    "secondary-dim": "#724a30",
+                    "inverse-surface": "#001207",
+                    "on-tertiary": "#fff7f5",
+                    "inverse-on-surface": "#89a391",
+                    "on-secondary": "#fff7f5",
+                    "surface-container-low": "#dafce3",
+                    "on-primary-fixed": "#26462a",
+                    "surface": "#e9ffed",
+                    "error-dim": "#821a01",
+                    "on-background": "#073a23",
+                    "outline-variant": "#8cbd9d",
+                    "on-secondary-fixed": "#5b361e",
+                    "secondary": "#80553b",
+                    "on-error": "#fff7f6",
+                    "outline": "#568568"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e9ffed;
+            color: #073a23;
+        }
+        .tonal-shifting {
+            transition: background-color 0.3s ease;
+        }
+        .tap-highlight-transparent {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen pb-24 selection:bg-tertiary-container/40">
+<!-- TopAppBar -->
+<header class="w-full pt-4 pb-2 bg-[#e9ffed] dark:bg-emerald-950 flex justify-between items-center px-6">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-[#bbeecc] dark:hover:bg-emerald-800 transition-colors scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined text-[#456748] dark:text-emerald-400">menu</span>
+</button>
+<h1 class="font-inter text-2xl font-bold tracking-tight text-[#073a23] dark:text-emerald-100">Personal Notes</h1>
+</div>
+<div class="flex items-center">
+<button class="p-2 rounded-full hover:bg-[#bbeecc] dark:hover:bg-emerald-800 transition-colors scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined text-[#456748] dark:text-emerald-400">search</span>
+</button>
+</div>
+</header>
+<main class="max-w-3xl mx-auto px-6 pt-8 space-y-12">
+<!-- Profile Header Section (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container rounded-lg p-8 flex flex-col justify-between">
+<div>
+<h2 class="text-3xl font-black text-on-surface mb-2">Settings</h2>
+<p class="text-on-surface-variant font-medium">Customize your sanctuary for focus and clarity.</p>
+</div>
+<div class="mt-8 flex items-center gap-4">
+<img alt="User" class="w-12 h-12 rounded-full bg-secondary-container p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfkBNFv1xVszxtrohWQt_XtJgMruQ0ZoV9loKxrlzlizdEh_RFuUegjA8dzWF-oh_w5ijUdG7XVxdWEVzIUufTCW6rTDDHeASNDN4tgUKuH7wFueav06_xBm1rG9wL9uU4xfAYtw2d2ExDkV9VMuzulPZ1ZX7SAEhBhiFfJzkFamFzMtY5bY6uQdBzvj-VPoHsQyuUaKVZI2jNuIe4TN0DqM4-GnEwkREu9SPnksKN_FDtN8Nu6yVHmV_n14WmjqiPhCHJ2J-z6H4"/>
+<div>
+<p class="font-bold text-on-surface">Alex Rivera</p>
+<p class="text-sm text-on-surface-variant">Premium Editor</p>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container rounded-lg p-8 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-4xl text-tertiary mb-3" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+<p class="font-bold text-on-secondary-container">All Synced</p>
+<p class="text-xs text-on-secondary-container mt-1 opacity-80">Last update: 2m ago</p>
+</div>
+</section>
+<!-- Sync & Storage -->
+<div class="space-y-4">
+<h3 class="text-xs font-black tracking-widest text-on-surface-variant uppercase px-2">Sync &amp; Storage</h3>
+<div class="bg-surface-container-low rounded-lg overflow-hidden">
+<!-- Google Drive Connection -->
+<div class="flex items-center justify-between p-6 hover:bg-surface-container transition-colors group cursor-pointer border-b border-surface-variant/20">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">add_to_drive</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Google Drive</p>
+<p class="text-sm text-on-surface-variant">alex.rivera@gmail.com</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-primary bg-primary-container px-3 py-1 rounded-full">Connected</span>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<!-- Sync Frequency -->
+<div class="flex items-center justify-between p-6 hover:bg-surface-container transition-colors group cursor-pointer">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">sync</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Sync frequency</p>
+<p class="text-sm text-on-surface-variant">Every 5 minutes</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Appearance (Updated) -->
+<div class="space-y-4">
+<h3 class="text-xs font-black tracking-widest text-on-surface-variant uppercase px-2">Appearance</h3>
+<div class="bg-surface-container-low rounded-lg overflow-hidden p-6 space-y-8">
+<!-- Theme Section -->
+<div>
+<div class="flex items-center gap-5 mb-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">palette</span>
+</div>
+<p class="font-bold text-on-surface">Theme</p>
+</div>
+<div class="flex p-1.5 bg-surface-container-highest rounded-full max-w-sm ml-16">
+<button class="flex-1 bg-surface-container-lowest text-on-surface py-2.5 rounded-full font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">light_mode</span>
+                            Light
+                        </button>
+<button class="flex-1 text-on-surface-variant py-2.5 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-surface-variant/30 transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">dark_mode</span>
+                            Dark
+                        </button>
+<button class="flex-1 text-on-surface-variant py-2.5 rounded-full font-bold text-sm flex items-center justify-center gap-2 hover:bg-surface-variant/30 transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">settings_brightness</span>
+                            Auto
+                        </button>
+</div>
+</div>
+<!-- Color Accent Section -->
+<div class="border-t border-surface-variant/20 pt-6">
+<div class="flex items-center gap-5 mb-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">format_paint</span>
+</div>
+<p class="font-bold text-on-surface">Color Accent</p>
+</div>
+<div class="flex gap-4 ml-16">
+<!-- Green (Default) -->
+<button class="w-10 h-10 rounded-full bg-[#456748] ring-4 ring-primary-container ring-offset-2 flex items-center justify-center transition-transform active:scale-90">
+<span class="material-symbols-outlined text-white text-sm">check</span>
+</button>
+<!-- Pastel Blue -->
+<button class="w-10 h-10 rounded-full bg-[#a3c4f3] hover:ring-2 hover:ring-[#a3c4f3]/50 ring-offset-2 transition-transform active:scale-90"></button>
+<!-- Pastel Pink -->
+<button class="w-10 h-10 rounded-full bg-[#f1c0e8] hover:ring-2 hover:ring-[#f1c0e8]/50 ring-offset-2 transition-transform active:scale-90"></button>
+<!-- Pastel Lavender -->
+<button class="w-10 h-10 rounded-full bg-[#cfbaf0] hover:ring-2 hover:ring-[#cfbaf0]/50 ring-offset-2 transition-transform active:scale-90"></button>
+<!-- Pastel Orange -->
+<button class="w-10 h-10 rounded-full bg-[#ffcfd2] hover:ring-2 hover:ring-[#ffcfd2]/50 ring-offset-2 transition-transform active:scale-90"></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Support -->
+<div class="space-y-4">
+<h3 class="text-xs font-black tracking-widest text-on-surface-variant uppercase px-2">Support</h3>
+<div class="bg-surface-container-low rounded-lg overflow-hidden">
+<!-- About -->
+<div class="flex items-center justify-between p-6 hover:bg-surface-container transition-colors group cursor-pointer border-b border-surface-variant/20">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">info</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">About</p>
+<p class="text-sm text-on-surface-variant">Version 2.4.0 (Stable)</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Help -->
+<div class="flex items-center justify-between p-6 hover:bg-surface-container transition-colors group cursor-pointer">
+<div class="flex items-center gap-5">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">help_outline</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Help &amp; Documentation</p>
+<p class="text-sm text-on-surface-variant">Guides for the editorial workflow</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">open_in_new</span>
+</div>
+</div>
+</div>
+<div class="pt-8 text-center">
+<button class="text-error font-bold px-8 py-4 rounded-full border border-error/10 hover:bg-error/5 transition-colors">
+                Sign Out
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md rounded-[2rem] bg-[#d0f7dc]/80 dark:bg-emerald-900/80 backdrop-blur-3xl shadow-[0px_12px_32px_rgba(7,58,35,0.08)] z-50 flex justify-around items-center h-20 px-2">
+<!-- Notes -->
+<a class="flex flex-col items-center justify-center text-[#3a684e] dark:text-emerald-300 px-5 py-2 hover:bg-[#bbeecc] dark:hover:bg-emerald-800 rounded-full transition-transform active:scale-95 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-inter text-[11px] font-medium tracking-wide">Notes</span>
+</a>
+<!-- Drafts -->
+<a class="flex flex-col items-center justify-center text-[#3a684e] dark:text-emerald-300 px-5 py-2 hover:bg-[#bbeecc] dark:hover:bg-emerald-800 rounded-full transition-transform active:scale-95 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-inter text-[11px] font-medium tracking-wide">Drafts</span>
+</a>
+<!-- Tags -->
+<a class="flex flex-col items-center justify-center text-[#3a684e] dark:text-emerald-300 px-5 py-2 hover:bg-[#bbeecc] dark:hover:bg-emerald-800 rounded-full transition-transform active:scale-95 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined">label</span>
+<span class="font-inter text-[11px] font-medium tracking-wide">Tags</span>
+</a>
+<!-- Settings (Active) -->
+<a class="flex flex-col items-center justify-center bg-[#ffdbc8] dark:bg-orange-900/40 text-[#994817] dark:text-orange-200 rounded-full px-5 py-2 transition-transform active:scale-95 tap-highlight-transparent" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-inter text-[11px] font-medium tracking-wide">Archive</span>
+</a>
+</nav>
+</body></html>

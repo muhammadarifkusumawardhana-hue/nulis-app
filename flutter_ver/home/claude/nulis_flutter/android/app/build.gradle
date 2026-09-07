@@ -1,0 +1,56 @@
+// android/app/build.gradle
+//
+// Package name com.nu.lis dipertahankan PERSIS sama
+// agar user lama bisa update tanpa install ulang.
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "com.nu.lis"
+    compileSdk flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        // !! SAMA dengan Kotlin — agar user lama bisa update !!
+        applicationId "com.nu.lis"
+        minSdk 26                        // sama dengan versi Kotlin
+        targetSdk flutter.targetSdkVersion
+        versionCode 7                    // satu lebih tinggi dari Kotlin (versionCode 6)
+        versionName "1.2.0"
+
+        // Diperlukan untuk google_sign_in
+        manifestPlaceholders = [
+            "appAuthRedirectScheme": "com.nu.lis"
+        ]
+    }
+
+    buildTypes {
+        release {
+            // Gunakan keystore yang SAMA dengan versi Kotlin
+            // agar bisa update aplikasi yang sudah ada di Play Store
+            signingConfig signingConfigs.debug // Ganti dengan keystore asli saat release
+
+            // Optimasi untuk perangkat low-end
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+flutter {
+    source "../.."
+}

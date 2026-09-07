@@ -1,0 +1,36 @@
+# Flutter/Dart generated files
+.dart_tool/
+.packages
+pubspec.lock
+.buildlog/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-plugins-found
+.flutter-plugins-input
+.gradle/
+build/
+ios/Pods/
+android/.gradle/
+android/app/build/
+android/.cxx/
+android/.externalNativeBuild/
+android/.gradle/
+android/.idea/
+android/.vs/
+*.log
+*.lock
+*.iml
+*.hprof
+# IDE files
+.idea/
+.vscode/
+# Sensitive / credential files
+OAuthClient/
+# Large archives / generated binaries
+*.zip
+*.apk
+*.aar
+*.so
+# Misc
+.DS_Store
+Thumbs.db
